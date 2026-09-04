@@ -19,10 +19,17 @@
         -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
       }
 
-      /* Full-viewport shell. Solid dark = clean loading backdrop + clean letterbox bars. */
+      /* Full-viewport shell. The game's own key art, blurred and darkened, sits behind
+         the loading UI so a player can see which game is loading. #0e0e12 stays under
+         it as the fallback while the JPG is still in flight, and must stay identical to
+         GROUND in Tools/bake_loading_bg.py, which bakes the JPG.
+         `cover`, never `100% 100%`: cover crops, stretch distorts, and portrait art
+         stretched into a wide viewport looks broken.
+         The backdrop covers the whole viewport, so once the game is running it is what
+         fills the letterbox bars either side of the canvas rather than flat #0e0e12. */
       #unity-container {
         position: fixed; inset: 0;
-        background: #0e0e12;
+        background: #0e0e12 url('TemplateData/loading-bg.jpg') center / cover no-repeat;
       }
 
       /* Canvas is positioned by JS (letterbox). Transparent so the backdrop shows through
